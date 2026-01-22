@@ -12,8 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('articoli.index')" :active="request()->routeIs('dashboard')">
+                        {{ 'Articoli'}}
+                    </x-nav-link>
+                </div>
+                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('categorie.index')" :active="request()->routeIs('dashboard')">
+                        {{ 'Categorie'}}
                     </x-nav-link>
                 </div>
             </div>

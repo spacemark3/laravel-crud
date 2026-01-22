@@ -12,13 +12,13 @@
                 <form action="{{ route('articoli.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Titolo</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Titolo</label>
                         <input type="text" name="titoli" value="{{ old('titoli') }}" 
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                         @error('titoli') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Contenuto</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Contenuto</label>
                         <textarea name="contenuto" 
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                                   rows="8">{{ old('contenuto') }}</textarea>
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Categoria</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Categoria</label>
                         <select name="categoria_id" 
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                             <option value="">-- Seleziona una categoria --</option>
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2">Immagine (Wallpaper)</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Immagine (Wallpaper)</label>
                         <input type="file" name="immagine" accept="image/*"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                         <p class="text-gray-500 text-sm mt-1">Formati supportati: JPEG, PNG, JPG, GIF (Max 2MB)</p>

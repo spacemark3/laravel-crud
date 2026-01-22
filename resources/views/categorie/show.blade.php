@@ -12,7 +12,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h3 class="text-2xl font-bold text-gray-900 mb-6">
-                Articoli in questa categoria: ({{ $articoli->total() }})
+                Articoli ({{ $articoli->total() }}):
             </h3>
             @if($articoli->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

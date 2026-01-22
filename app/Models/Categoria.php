@@ -12,6 +12,7 @@ class Categoria extends Model
     protected $fillable = [
         'nome',
         'descrizione',
+        'immagine'
     ];
        public function articoli(): HasMany
     {

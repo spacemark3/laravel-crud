@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoriaRequest;
+use App\Http\Requests\UpdateCategoriaRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriaController extends Controller
 {
     /**
      * Visualizza tutte le categorie
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categorie = Categoria::all();
-        return view('categorie.index', compact('categorie'));
-    }
+        $search = $request->input('search');
+        $categorie = Categoria::orderBy('created_at', 'asc');
 
+        if($search){
+            $categorie = $categorie->where('nome', 'like', '%' . $search . '%');
+        }
+        $categorie = $categorie->paginate(6);
+        return view('categorie.index', compact('categorie', 'search'));
+    }
     /**
      * Mostra il form per creare una categoria
      */
@@ -23,7 +31,6 @@ class CategoriaController extends Controller
     {
         return view('categorie.create');
     }
-
     /**
      * Visualizza gli articoli di una categoria
      */
@@ -32,21 +39,20 @@ class CategoriaController extends Controller
         $articoli = $categoria->articoli()->paginate(10);
         return view('categorie.show', compact('categoria', 'articoli'));
     }
-
     /**
      * Salva la nuova categoria
      */
-    public function store(Request $request)
+    public function store(StoreCategoriaRequest $request)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255|unique:categorie,nome',
-            'descrizione' => 'nullable|string',
-        ]);
+        $data = $request->validated();
 
-        Categoria::create($validated);
+        if($request->hasFile('immagine')){
+            $data['immagine'] = $request->file('immagine')->store('categorie', 'public');
+        }
+
+        Categoria::create($data);
         return redirect()->route('categorie.index')->with('success', 'Categoria creata!');
     }
-
     /**
      * Mostra il form per modificare una categoria
      */
@@ -54,26 +60,28 @@ class CategoriaController extends Controller
     {
         return view('categorie.edit', compact('categoria'));
     }
-
     /**
      * Aggiorna una categoria
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(UpdateCategoriaRequest $request, Categoria $categoria)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255|unique:categorie,nome,' . $categoria->id,
-            'descrizione' => 'nullable|string',
-        ]);
-
-        $categoria->update($validated);
+        $data = $request->validated();
+        if($request->hasFile('immagine')){
+            if($categoria->immagine){
+                Storage::disk('public')->delete($categoria->immagine);
+            }
+            $data['immagine'] = $request->file('immagine')->store('categorie', 'public');
+        }
         return redirect()->route('categorie.index')->with('success', 'Categoria aggiornata!');
     }
-
     /**
      * Elimina una categoria
      */
     public function destroy(Categoria $categoria)
     {
+        if($categoria->immagine){
+            Storage::disk('public')->delete($categoria->immagine);
+        }
         $categoria->delete();
         return redirect()->route('categorie.index')->with('success', 'Categoria eliminata!');
     }

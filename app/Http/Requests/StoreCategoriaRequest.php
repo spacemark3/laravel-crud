@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArticoloRequest extends FormRequest
+class StoreCategoriaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,7 +12,6 @@ class StoreArticoloRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-        /* qui possiamo gestire la logica per poter autorizzare un certo tipo di ID con le conditionals */
     }
 
     /**
@@ -23,18 +22,16 @@ class StoreArticoloRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titoli' => 'required|string|max:255',
-            'contenuto' => 'required|string',
-            'categoria_id' => 'nullable|exists:categorie,id',
+            'nome' => 'required|string|max:255|unique:categorie,nome',
+            'descrizione' => 'nullable|string',
             'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
     public function messages(): array
     {
         return [
-            'titoli.required' => 'il titolo è obbligatorio',
-            'contenuto.required' => 'Il contenuto è obbligatorio',
-            'imagine.image' => 'Il file deve essere un\'immagine valida',
+            'nome.required' => 'Il nome è obbligatorio',
+            'immagine.image' => 'Il file deve essere un\'immagine valida',
         ];
-    }
+    }   
 }

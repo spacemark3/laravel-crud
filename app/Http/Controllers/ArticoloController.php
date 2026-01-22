@@ -17,13 +17,12 @@ class ArticoloController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $query = Articolo::orderBy('created_at', 'asc');
-        
+        $articolo = Articolo::orderBy('created_at', 'asc');
         if ($search) {
-            $query->where('titoli', 'like', '%' . $search . '%');
+            $articolo->where('titoli', 'like', '%' . $search . '%');
         }
 
-        $articoli = $query->paginate(6);
+        $articoli = $articolo->paginate(6);
         return view('articoli.index', compact('articoli', 'search'));
     }
 
@@ -46,7 +45,6 @@ class ArticoloController extends Controller
         if ($request->hasFile('immagine')) {
             $data['immagine'] = $request->file('immagine')->store('articoli', 'public');
         }
-        
         Articolo::create($data);
         return redirect()->route('articoli.index')
         ->with('success', 'Articolo creato con successo!');
@@ -78,13 +76,11 @@ class ArticoloController extends Controller
         $data = $request->validated();
         
         if ($request->hasFile('immagine')) {
-            // Delete old image if exists
             if ($articolo->immagine) {
                 Storage::disk('public')->delete($articolo->immagine);
             }
             $data['immagine'] = $request->file('immagine')->store('articoli', 'public');
         }
-        
         $articolo->update($data);
         return redirect()->route('articoli.index')
         ->with('success','Articolo aggiornato con successo!');
@@ -95,7 +91,6 @@ class ArticoloController extends Controller
      */
     public function destroy(Articolo $articolo)
     {
-        // Delete image if exists
         if ($articolo->immagine) {
             Storage::disk('public')->delete($articolo->immagine);
         }
