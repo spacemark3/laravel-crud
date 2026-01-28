@@ -20,7 +20,7 @@ class Articolo extends Model
     protected $table = 'articoli';
 
     protected $fillable = [
-        'titoli',
+        'titolo',
         'contenuto',
         'categoria_id',
         'immagine'
@@ -44,4 +44,5 @@ class Articolo extends Model
          */
         return $this->belongsTo(Categoria::class);
     }
+    
 }

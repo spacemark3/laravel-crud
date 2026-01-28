@@ -6,10 +6,13 @@
                     {{ 'Elenco Articoli'}}
                 </h2>
             </div>
+
             <div class="flex items-center mt-4 space-x-4">
                 <a href="{{ route('articoli.create') }}" class="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-2 px-4 rounded">
                     + Articolo
                 </a>
+
+
                 <form action="{{ route('articoli.index') }}" method="GET" class="flex gap-3">
                     <input type="text" name="search" value="{{ $search ?? '' }}"
                         placeholder="Cerca articoli..."
@@ -30,11 +33,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if($articoli->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
                 @foreach($articoli as $articolo)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     @if($articolo->immagine)
                     <div class="w-full h-48 overflow-hidden bg-gray-200">
-                        <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titoli }}"
+                        <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titolo }}"
                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                     </div>
                     @else
@@ -44,7 +48,7 @@
                     @endif
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <h3 class="text-lg font-bold text-gray-900">{{ $articolo->titoli }}</h3>
+                            <h3 class="text-lg font-bold text-gray-900">{{ $articolo->titolo }}</h3>
                             @if($articolo->categoria)
                             <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">
                                 {{ $articolo->categoria->nome }}
@@ -81,7 +85,27 @@
                     </div>
                 </div>
                 @endforeach
+
+                {{-- 
+                @foreach ($articoli as $articolo)
+                <x-card>
+                    <x-slot name="immagine">
+                        {{ $articolo->immagine }}
+                    </x-slot>
+
+                    <x-slot name="titolo">
+                        {{ $articolo->titolo }}
+                    </x-slot>
+
+                    <p>{{ $articolo->descrizione }}</p>
+
+                    <x-slot name="categoria">
+                        {{ $articolo->categoria->nome ?? '' }}
+                    </x-slot>
+                </x-card>
+                @endforeach  --}}
             </div>
+
             {{ $articoli->links() }}
             @else
             <div class="bg-white rounded-lg shadow-sm p-12 text-center">

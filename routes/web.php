@@ -3,7 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticoloController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\AnimalController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckName;
+use App\Http\Middleware\checkActiveUser;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('articoli/{articolo}', [ArticoloController::class, 'update'])->name('articoli.update');
     Route::delete('articoli/{articolo}', [ArticoloController::class, 'destroy'])->name('articoli.destroy');
 
-    Route::get('categorie', [CategoriaController::class, 'index'])->name('categorie.index');
+    Route::get('categorie', [CategoriaController::class, 'index'])->middleware(CheckName::class)->name('categorie.index');
     Route::get('categorie/create', [CategoriaController::class, 'create'])->name('categorie.create');
     Route::post('categorie', [CategoriaController::class, 'store'])->name('categorie.store');
     Route::get('categorie/{categoria}', [CategoriaController::class, 'show'])->name('categorie.show');
@@ -36,5 +40,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('categorie/{categoria}', [CategoriaController::class, 'update'])->name('categorie.update');
     Route::delete('categorie/{categoria}', [CategoriaController::class, 'destroy'])->name('categorie.destroy');
 });
+
+Route::get('testing', function () {
+    $articles = ['Articolo 1', 'Articolo 2', 'Articolo 3', 'Articolo 4','Articolo 5', 'Articolo 6'];
+    $tables = ['Tavolo 1', 'Tavolo 2', 'Tavolo 3'];
+    return view('testing', compact('articles', 'tables'));
+});
+
+Route::get('test2', function () {
+    $tavole = ['Tavolo A', 'Tavolo B', 'Tavolo C', 'Tavolo D','Tavolo E'];
+    $header = 'Pagina Test22222';
+    return view('test2')->with('tavole', $tavole)->with('header', $header);
+});
+
+Route::get('test3', [AnimalController::class, 'animal'])->name('test3');
+Route::get('test3', [AnimalController::class,'functest'])->name('test4');
+
 
 require __DIR__ . '/auth.php';

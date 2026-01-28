@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow p-8">
-                <form action="{{ route('categorie.update', $categoria->id) }}" method="POST">
+                <form action="{{ route('categorie.update', $categoria->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -18,7 +18,6 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                         @error('nome') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
-
                     <div class="mb-6">
                         <label class="text-lg font-bold text-gray-900 mb-3">Descrizione</label>
                         <textarea name="descrizione"
@@ -26,6 +25,7 @@
                             rows="5">{{ $categoria->descrizione }}</textarea>
                         @error('descrizione') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
+                    
                     <div class="mb-6">
                         <label class="text-lg font-bold text-gray-900 mb-3">Immagine (Wallpaper)</label>
                         @if($categoria->immagine)
@@ -36,9 +36,10 @@
                         @endif
                         <input type="file" name="immagine" accept="image/*"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        <p class="text-gray-500 text-sm mt-1">Formati supportati: JPEG, PNG, JPG, GIF (Max 2MB). Lascia vuoto per mantenere l'immagine attuale.</p>
+                        <p class="text-gray-500 text-sm mt-1">Lascia vuoto per mantenere l'immagine attuale.</p>
                         @error('immagine') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
+
                     <div class="flex gap-3">
                         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded">
                             Salva

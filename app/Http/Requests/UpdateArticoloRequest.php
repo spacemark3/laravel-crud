@@ -22,7 +22,7 @@ class UpdateArticoloRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titoli' => 'required|string|max:255',
+            'titolo' => 'required|string|max:255',
             'contenuto' => 'required|string',
             'categoria_id' => 'nullable|exists:categorie,id',
             'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

@@ -31,6 +31,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if($categorie->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
                 @foreach($categorie as $categoria)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                     @if($categoria->immagine)
@@ -71,12 +72,10 @@
                 </div>
                 @endforeach
             </div>
+                   {{ $categorie->links() }}
             @else
             <div class="bg-white rounded-lg shadow-sm p-12 text-center">
                 <p class="text-gray-500 text-lg mb-6">Nessuna categoria trovata</p>
-                <a href="{{ route('categorie.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded inline-block">
-                    Crea categoria
-                </a>
             </div>
             @endif
         </div>

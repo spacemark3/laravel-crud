@@ -13,7 +13,7 @@ class ArticoliSeeder extends Seeder
     {
         foreach (range(1, 20) as $index) {
             $articolo = new Articolo();
-            $articolo->titoli = 'Articolo ' . $index;
+            $articolo->titolo = 'Articolo ' . $index;
             $articolo->contenuto = 'Questo è il contenuto dell\'articolo ' . $index . '.';
             $articolo->save();
         }   

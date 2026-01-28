@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('articoli', function (Blueprint $table) {
             $table->id();
             $table->string('titolo');
-            $table->text('contenuto');
+            $table->text('contenuto')->nullable();
+            $table->string('immagine')->nullable();
+            $table->foreignId('categoria_id')->nullable()->constrained('categorie')->onDelete('set null');
             $table->timestamps();
         });
     }

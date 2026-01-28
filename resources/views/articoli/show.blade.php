@@ -15,12 +15,12 @@
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                 @if($articolo->immagine)
                     <div class="w-full h-96 overflow-hidden bg-gray-200">
-                        <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titoli }}" 
+                        <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titolo }}" 
                              class="w-full h-full object-cover">
                     </div>
                 @endif
                 <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-6">
-                    <h1 class="text-3xl font-bold text-white">{{ $articolo->titoli }}</h1>
+                    <h1 class="text-3xl font-bold text-white">{{ $articolo->titolo }}</h1>
                 </div>
                 <div class="p-8">
                     <div class="mb-8">

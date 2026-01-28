@@ -21,7 +21,7 @@
                             <div class="p-6">
                                 @if($articolo->immagine)
                                 <div class="w-full h-48 overflow-hidden bg-gray-200">
-                                    <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titoli }}" 
+                                    <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titolo }}" 
                                          class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                                 </div>
                             @else
@@ -29,7 +29,7 @@
                                     <span class="text-gray-600 font-semibold">No Image</span>
                                 </div>
                             @endif
-                                <h4 class="text-lg font-bold text-gray-900 mb-3">{{ $articolo->titoli }}</h4>
+                                <h4 class="text-lg font-bold text-gray-900 mb-3">{{ $articolo->titolo }}</h4>
                                 <p class="text-gray-600 text-sm mb-6 line-clamp-3">{{ $articolo->contenuto }}</p>
                                 
                                 <div class="flex gap-3">
@@ -41,6 +41,7 @@
                                        class="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-3 rounded text-center text-sm">
                                         Modifica
                                     </a>
+                                    aggiungere eliminazione
                                 </div>
                             </div>
                         </div>

@@ -17,15 +17,13 @@ class ArticoloController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $articolo = Articolo::orderBy('created_at', 'asc');
+        $articoli = Articolo::orderBy('created_at', 'asc');
         if ($search) {
-            $articolo->where('titoli', 'like', '%' . $search . '%');
+            $articoli = $articoli->where('titolo', 'like', '%' . $search . '%');
         }
-
-        $articoli = $articolo->paginate(6);
+        $articoli = $articoli->with('categoria')->paginate(6);
         return view('articoli.index', compact('articoli', 'search'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -34,22 +32,19 @@ class ArticoloController extends Controller
         $categorie = Categoria::all();
         return view('articoli.create', compact('categorie'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreArticoloRequest $request)
     {
         $data = $request->validated();
-        
+    
         if ($request->hasFile('immagine')) {
-            $data['immagine'] = $request->file('immagine')->store('articoli', 'public');
+            $data['immagine'] = $request->file('immagine')->store('articolo', 'public');
         }
         Articolo::create($data);
-        return redirect()->route('articoli.index')
-        ->with('success', 'Articolo creato con successo!');
+        return redirect()->route('articoli.index');
     }
-
     /**
      * Display the specified resource.
      */
@@ -67,7 +62,6 @@ class ArticoloController extends Controller
         $categorie = Categoria::all();
         return view('articoli.edit', compact('articolo', 'categorie'));
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -81,9 +75,9 @@ class ArticoloController extends Controller
             }
             $data['immagine'] = $request->file('immagine')->store('articoli', 'public');
         }
+
         $articolo->update($data);
-        return redirect()->route('articoli.index')
-        ->with('success','Articolo aggiornato con successo!');
+        return redirect()->route('articoli.index');
     }
 
     /**

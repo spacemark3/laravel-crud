@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Crea Nuovo Articolo
@@ -13,36 +13,39 @@
                     @csrf
                     <div class="mb-6">
                         <label class="text-lg font-bold text-gray-900 mb-3">Titolo</label>
-                        <input type="text" name="titoli" value="{{ old('titoli') }}" 
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        @error('titoli') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <input type="text" name="titolo" value="{{ old('titolo') }}"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        @error('titolo')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
+
                     <div class="mb-6">
                         <label class="text-lg font-bold text-gray-900 mb-3">Contenuto</label>
-                        <textarea name="contenuto" 
-                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                                  rows="8">{{ old('contenuto') }}</textarea>
+                        <textarea name="contenuto"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                            rows="8">{{ old('contenuto') }}</textarea>
                         @error('contenuto') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="mb-6">
                         <label class="text-lg font-bold text-gray-900 mb-3">Categoria</label>
-                        <select name="categoria_id" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <select name="categoria_id"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                             <option value="">-- Seleziona una categoria --</option>
                             @foreach($categorie as $categoria)
-                                <option value="{{ $categoria->id }}" @if(old('categoria_id') == $categoria->id) selected @endif>
-                                    {{ $categoria->nome }}
-                                </option>
+                            <option value="{{ $categoria->id }}" @if(old('categoria_id')==$categoria->id) selected @endif>
+                                {{ $categoria->nome }}
+                            </option>
                             @endforeach
                         </select>
                         @error('categoria_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="mb-6">
-                        <label class="text-lg font-bold text-gray-900 mb-3">Immagine (Wallpaper)</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Immagine</label>
                         <input type="file" name="immagine" accept="image/*"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                         <p class="text-gray-500 text-sm mt-1">Formati supportati: JPEG, PNG, JPG, GIF (Max 2MB)</p>
                         @error('immagine') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>

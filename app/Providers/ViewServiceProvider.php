@@ -3,10 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
-use App\View\Components\FormCard;
-
-class AppServiceProvider extends ServiceProvider
+use Illuminate\Support\Facades\View;
+use App\View\Composers\TestComposer;
+class ViewServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -21,5 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer(['*'], TestComposer::class);
     }
 }
+

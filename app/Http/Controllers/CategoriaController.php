@@ -18,10 +18,10 @@ class CategoriaController extends Controller
         $search = $request->input('search');
         $categorie = Categoria::orderBy('created_at', 'asc');
 
-        if($search){
+        if ($search) {
             $categorie = $categorie->where('nome', 'like', '%' . $search . '%');
         }
-        $categorie = $categorie->paginate(6);
+        $categorie = $categorie->paginate(3);
         return view('categorie.index', compact('categorie', 'search'));
     }
     /**
@@ -36,7 +36,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        $articoli = $categoria->articoli()->paginate(10);
+        $articoli = $categoria->articoli()->orderBy('created_at', 'desc')->paginate(6);
         return view('categorie.show', compact('categoria', 'articoli'));
     }
     /**
@@ -45,13 +45,12 @@ class CategoriaController extends Controller
     public function store(StoreCategoriaRequest $request)
     {
         $data = $request->validated();
-
-        if($request->hasFile('immagine')){
+        if ($request->hasFile('immagine')) {
             $data['immagine'] = $request->file('immagine')->store('categorie', 'public');
         }
 
         Categoria::create($data);
-        return redirect()->route('categorie.index')->with('success', 'Categoria creata!');
+        return redirect()->route('categorie.index');
     }
     /**
      * Mostra il form per modificare una categoria
@@ -66,20 +65,24 @@ class CategoriaController extends Controller
     public function update(UpdateCategoriaRequest $request, Categoria $categoria)
     {
         $data = $request->validated();
-        if($request->hasFile('immagine')){
-            if($categoria->immagine){
+
+        if ($request->hasFile('immagine')) {
+            if ($categoria->immagine) {
                 Storage::disk('public')->delete($categoria->immagine);
             }
             $data['immagine'] = $request->file('immagine')->store('categorie', 'public');
         }
-        return redirect()->route('categorie.index')->with('success', 'Categoria aggiornata!');
+
+        $categoria->update($data);
+        return redirect()->route('categorie.index');
     }
+
     /**
      * Elimina una categoria
      */
     public function destroy(Categoria $categoria)
     {
-        if($categoria->immagine){
+        if ($categoria->immagine) {
             Storage::disk('public')->delete($categoria->immagine);
         }
         $categoria->delete();
