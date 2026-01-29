@@ -37,6 +37,7 @@ class ArticoloController extends Controller
      */
     public function store(StoreArticoloRequest $request)
     {
+
         $data = $request->validated();
     
         if ($request->hasFile('immagine')) {
@@ -59,6 +60,7 @@ class ArticoloController extends Controller
      */
     public function edit(Articolo $articolo)
     {
+       
         $categorie = Categoria::all();
         return view('articoli.edit', compact('articolo', 'categorie'));
     }
@@ -67,6 +69,7 @@ class ArticoloController extends Controller
      */
     public function update(UpdateArticoloRequest $request, Articolo $articolo)
     {
+
         $data = $request->validated();
         
         if ($request->hasFile('immagine')) {
@@ -77,6 +80,7 @@ class ArticoloController extends Controller
         }
 
         $articolo->update($data);
+        dd($articolo);
         return redirect()->route('articoli.index');
     }
 

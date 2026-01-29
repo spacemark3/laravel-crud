@@ -1,17 +1,41 @@
-<div class="card">
-    <div class="immagine">
+@props([
+'buttons' => [],
+'abra',
+])
+<div>
+    <div>
         {{ $immagine }}
     </div>
 
-    <div class="titolo">
+    <div>
+        <div>
+            {{ $titolo }}
+        </div>
+        <div>
+            {{ $categoria }}
+        </div>
         {{ $slot }}
-    </div>
+        @foreach ($buttons as $button)
+        <x-button :type="$button['type']">
+            {{ $button['label'] }}
+        </x-button>
+        @endforeach
 
-    <div class="card-footer">
-        {{ $descrizione ?? '' }}
-    </div>
+        <x-alert type="success" class="mb-4">
+            Operazione completata con successo!
+        </x-alert>
 
-    <x-button type="dettagli">Dettagli</x-button>
-    <x-button type="modifica">Modifica</x-button>
-    <x-button type="elimina">Elimina</x-button>
+        <x-alert type="error" id="alert1">
+            Il titolo è obbligatorio
+        </x-alert>
+
+        <x-alert type="warning" class="mb-4">
+            Campi non validi
+        </x-alert>
+
+        <x-alert class="mb-4">
+            Messaggio informativo generico
+        </x-alert>
+
+    </div>
 </div>

@@ -6,6 +6,16 @@
         </h2>
     </x-slot>
 
+    @if ($errors->any())
+    <x-alert type="error" variant="outline">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </x-alert>
+    @endif
+    
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow p-8">
@@ -15,9 +25,6 @@
                         <label class="text-lg font-bold text-gray-900 mb-3">Titolo</label>
                         <input type="text" name="titolo" value="{{ old('titolo') }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        @error('titolo')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="mb-6">

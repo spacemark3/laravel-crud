@@ -10,8 +10,7 @@
         <x-primary-button class="mb-4" action="/test3">
             Primary Button
         </x-primary-button>
-
-        <a href="{{ route('test3') }}">
+        
         <x-secondary-button class="mb-4">
             Secondary Button
         </x-secondary-button>

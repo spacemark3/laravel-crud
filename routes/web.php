@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
 Route::get('testing', function () {
     $articles = ['Articolo 1', 'Articolo 2', 'Articolo 3', 'Articolo 4','Articolo 5', 'Articolo 6'];
     $tables = ['Tavolo 1', 'Tavolo 2', 'Tavolo 3'];
+
     return view('testing', compact('articles', 'tables'));
 });
 

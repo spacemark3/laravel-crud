@@ -6,13 +6,10 @@
                     {{ 'Elenco Articoli'}}
                 </h2>
             </div>
-
             <div class="flex items-center mt-4 space-x-4">
                 <a href="{{ route('articoli.create') }}" class="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-2 px-4 rounded">
                     + Articolo
                 </a>
-
-
                 <form action="{{ route('articoli.index') }}" method="GET" class="flex gap-3">
                     <input type="text" name="search" value="{{ $search ?? '' }}"
                         placeholder="Cerca articoli..."
@@ -85,27 +82,32 @@
                     </div>
                 </div>
                 @endforeach
-
-                {{-- 
+                
                 @foreach ($articoli as $articolo)
-                <x-card>
-                    <x-slot name="immagine">
-                        {{ $articolo->immagine }}
-                    </x-slot>
-
+                <x-card :buttons="[
+                ['type' => 'dettagli', 'label' => 'Dettagli'],
+                ['type' => 'elimina', 'label' => 'Elimina'],
+                ['type'=>'modifica', 'label' => 'modifica']
+                ]">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <x-slot name="immagine">
+                            <div class="w-full h-48 overflow-hidden bg-gray-200">
+                                <img src="{{ asset('storage/' . $articolo->immagine) }}" alt="{{ $articolo->titolo }}"
+                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                            </div>
+                        </x-slot>
+                    </div>
+                
                     <x-slot name="titolo">
                         {{ $articolo->titolo }}
                     </x-slot>
-
-                    <p>{{ $articolo->descrizione }}</p>
-
+                         <p>{{ $articolo->contenuto }}</p>
                     <x-slot name="categoria">
-                        {{ $articolo->categoria->nome ?? '' }}
+                        <strong> {{ $articolo->categoria->nome ?? '' }} </strong>
                     </x-slot>
                 </x-card>
-                @endforeach  --}}
+                @endforeach
             </div>
-
             {{ $articoli->links() }}
             @else
             <div class="bg-white rounded-lg shadow-sm p-12 text-center">
