@@ -5,9 +5,6 @@ use App\Http\Controllers\ArticoloController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AnimalController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\CheckName;
-use App\Http\Middleware\checkActiveUser;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('articoli/{articolo}', [ArticoloController::class, 'update'])->name('articoli.update');
     Route::delete('articoli/{articolo}', [ArticoloController::class, 'destroy'])->name('articoli.destroy');
 
-    Route::get('categorie', [CategoriaController::class, 'index'])->middleware(CheckName::class)->name('categorie.index');
+    Route::get('categorie', [CategoriaController::class, 'index'])->name('categorie.index');
     Route::get('categorie/create', [CategoriaController::class, 'create'])->name('categorie.create');
     Route::post('categorie', [CategoriaController::class, 'store'])->name('categorie.store');
     Route::get('categorie/{categoria}', [CategoriaController::class, 'show'])->name('categorie.show');

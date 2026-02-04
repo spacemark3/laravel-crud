@@ -80,8 +80,7 @@ class ArticoloController extends Controller
         }
 
         $articolo->update($data);
-        dd($articolo);
-        return redirect()->route('articoli.index');
+        return redirect()->route('articoli.index')->with('success','Operazione comepletata con successo');
     }
 
     /**
@@ -93,7 +92,6 @@ class ArticoloController extends Controller
             Storage::disk('public')->delete($articolo->immagine);
         }
         $articolo->delete();
-        return redirect()->route('articoli.index')
-        ->with('success','Articolo eliminato con successo!');
+        return redirect()->route('articoli.index')->with('success','Operazione completata con successo');
     }
 }

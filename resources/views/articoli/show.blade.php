@@ -5,7 +5,7 @@
                 {{'Dettagli Articolo'}}
             </h2>
             <a href="{{ route('articoli.index') }}" class="text-gray-600 hover:text-gray-900 font-semibold">
-                ← Torna alla lista
+                <- Torna alla lista
             </a>
         </div>
     </x-slot>

@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow p-8">
-                <form action="{{ route('categorie.store') }}" method="POST">
+                <form action="{{ route('categorie.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-6">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="text-lg font-bold text-gray-900 mb-3">Immagine (Wallpaper)</label>
+                        <label class="text-lg font-bold text-gray-900 mb-3">Immagine</label>
                         <input type="file" name="immagine" accept="image/*"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                         <p class="text-gray-500 text-sm mt-1">Formati supportati: JPEG, PNG, JPG, GIF (Max 2MB)</p>

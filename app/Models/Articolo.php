@@ -25,24 +25,22 @@ class Articolo extends Model
         'categoria_id',
         'immagine'
     ];
-    
+
     public function categoria(): BelongsTo
     {
         /**
-         * Get the category that this article belongs to.
-         * 
-         * This defines a many-to-one relationship where many articles (Articolo)
-         * belong to a single category (Categoria). While this is technically a one-to-one
-         * relationship at the database level (one article points to one category), it is
-         * classified as a BelongsTo relationship from the inverse perspective of HasOne.
-         * 
-         * The key difference:
-         * - BelongsTo: The foreign key is on THIS model (Articolo)
-         * - HasOne: The foreign key is on the RELATED model (Categoria)
-         * 
+         * Get the category that this article belongquindis to.
+
          * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         return $this->belongsTo(Categoria::class);
     }
-    
+    public function setTitoloAttribute($value)
+    {
+        $this->attributes['titolo'] = ucfirst(strtolower($value));
+    }
+    public function getTitoloAttribute($value)
+    {
+        return strtoupper($value);
+    }
 }

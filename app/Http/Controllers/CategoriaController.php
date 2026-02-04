@@ -37,6 +37,7 @@ class CategoriaController extends Controller
     public function show(Categoria $categoria)
     {
         $articoli = $categoria->articoli()->orderBy('created_at', 'desc')->paginate(6);
+        //dd($articoli);
         return view('categorie.show', compact('categoria', 'articoli'));
     }
     /**

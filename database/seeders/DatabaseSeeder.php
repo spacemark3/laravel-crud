@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => rand(1,1000000000).'test@example.com',
         ]);
+
+        $this->callSeeders();
     }
 
     public function callSeeders(): void

@@ -28,4 +28,12 @@ class UpdateArticoloRequest extends FormRequest
             'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
+        public function messages(): array
+    {
+        return [
+            'titolo.required' => 'il titolo è obbligatorio',
+            'contenuto.required' => 'Il contenuto è obbligatorio',
+            'imagine.image' => 'Il file deve essere un\'immagine valida',
+        ];
+    }
 }
